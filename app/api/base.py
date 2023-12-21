@@ -14,29 +14,16 @@ api = Api(api_todos)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-
 
 def get_json_file(file_path):
-    if not os.path.exists(file_path):
-        return {"error": "File not found"}
-
-    with open(file_path, "r") as file:
-        return json.load(file)
+    with open(file_path, "r") as f:
+        return json.load(f)
 
 
 class Infratoken(Resource):
     def get(self):
-        styles = get_json_file(
-            "/Users/rafaelricco/Documents/Emana/flask-mongodb/app/styles/colors-infra.json"
-        )
-        images = get_json_file(
-            "/Users/rafaelricco/Documents/Emana/flask-mongodb/app/styles/images-infratoken.json"
-        )
-
-        if "error" in styles or "error" in images:
-            return jsonify({"error": "One or more files not found"}), 404
-
+        styles = get_json_file("app/styles/colors-infra.json")
+        images = get_json_file("app/styles/images-infratoken.json")
         return jsonify({"styles": styles, "images": images})
 
 
